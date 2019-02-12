@@ -1,35 +1,28 @@
 #include "GreedyProgressionFinder.h"
 
-GreedyProgressionFinder::GreedyProgressionFinder(int memorySize) : ProgressionFinder()
-{
-    MemorySize = memorySize;
-}
+GreedyProgressionFinder::GreedyProgressionFinder(int memorySize) : ProgressionFinder(), KeyDetector(memorySize){}
 
 GreedyProgressionFinder::~GreedyProgressionFinder(){}
 
-void GreedyProgressionFinder::CatalogChord(Chord chord)
-{
-    Memory.push_back(chord);
-    if(Memory.size() > MemorySize)
-        Memory.pop_front();
-}
-
 Chord GreedyProgressionFinder::FindNextChord(list<Note> noteRestrictions)
 {
+    Chord optimalChord = UsingKeySignature ? PrimaryKey.MemberChords.Tonic : Chord();
+    
+    if(Memory.size() == 0)
+        return optimalChord;
+    
     int cost = Octave;
-    Chord bestChord;
-    if(UsingKeySignature)
-        bestChord = PrimaryKey.MemberChords.Tonic;
-    else
-        bestChord = Chord(C, Major);
+    
     for(Chord chord : AllChords)
     {
-        int chordCost = 0;
+        int chordCost = Memory.back() - chord;
+        
         for(Note note : noteRestrictions)
         {
             if(!chord.Contains(note))
                 chordCost += NonChordTonePenalty;
         }
+        
         for(Chord previousChord : Memory)
         {
             if(chord == previousChord)
@@ -56,8 +49,8 @@ Chord GreedyProgressionFinder::FindNextChord(list<Note> noteRestrictions)
         if(chordCost < cost)
         {
             cost = chordCost;
-            bestChord = chord;
+            optimalChord = chord;
         }
     }
-    return bestChord;
+    return optimalChord;
 }

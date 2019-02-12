@@ -51,6 +51,7 @@ public:
     Note Axis;
     KeyType Type;
     ChordDescriptors MemberChords;
+    string ToString();
     int GetId() const;
     bool operator==(const Key& otherKey) const;
     bool operator!=(const Key& otherKey) const;

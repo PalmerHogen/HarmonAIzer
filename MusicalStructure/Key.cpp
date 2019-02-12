@@ -25,19 +25,19 @@ Chord &ChordDescriptors::operator[](int index)
 {
     switch (index % 8)
     {
-        case 1:
+        case 0:
             return Tonic;
-        case 2:
+        case 1:
             return SuperTonic;
-        case 3:
+        case 2:
             return Mediant;
-        case 4:
+        case 3:
             return SubDominant;
-        case 5:
+        case 4:
             return Dominant;
-        case 6:
+        case 5:
             return SubMediant;
-        case 7:
+        case 6:
             return SubTonic;
         default:
             return Dominant;
@@ -104,6 +104,19 @@ Key Key::GetParallelKey()
 int Key::GetId() const
 {
     return 13*(int)Type + 97*Axis.GetId();
+}
+
+string Key::ToString()
+{
+    switch(Type)
+    {
+        case NaturalMinorKey:
+            return Axis.ToString() + " Natural Minor";
+        case HarmonicMinorKey:
+            return Axis.ToString() + " Harmonic Minor";
+        case MajorKey:
+            return Axis.ToString() + " Major";
+    }
 }
 
 bool Key::operator==(const Key& otherKey) const

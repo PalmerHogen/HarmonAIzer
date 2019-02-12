@@ -2,21 +2,19 @@
 #define GREEDYPROGRESSIONFINDER
 
 #include "ProgressionFinder.h"
+#include "KeyDetector.h"
 #include "../Parameters/UserParameters.h"
 #include <list>
 
 using namespace std;
 
-class GreedyProgressionFinder : public ProgressionFinder
+class GreedyProgressionFinder : public ProgressionFinder, public KeyDetector
 {
 public:
-    GreedyProgressionFinder(int memorySize);
+    GreedyProgressionFinder(int memorySize = 4);
     ~GreedyProgressionFinder();
-    void CatalogChord(Chord chord);
-    Chord FindNextChord(list<Note> noteRestrictions);
+    Chord FindNextChord(list<Note> noteRestrictions = {});
 private:
-    int MemorySize;
-    list<Chord> Memory;
 };
 
 #endif

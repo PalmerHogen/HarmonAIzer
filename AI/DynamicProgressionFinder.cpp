@@ -1,7 +1,5 @@
 #include "DynamicProgressionFinder.h"
 
-using namespace std;
-
 DynamicProgressionFinder::DynamicProgressionFinder() : ProgressionFinder(){}
 
 DynamicProgressionFinder::~DynamicProgressionFinder() {}
