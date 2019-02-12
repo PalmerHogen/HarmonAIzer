@@ -9,9 +9,8 @@ tuple<list<Chord>, int> DynamicProgressionFinder::GetSubPath(Chord start, Chord 
     if (!SubPathTraversed(pathLength, start))
     {
         if(pathLength <= 1)
-        {
             CatalogSubPath(pathLength, start, tuple<list<Chord>, int>(list<Chord>({finish}), start - finish));
-        }
+        
         else
         {
             int cost = pathLength * Octave;
@@ -21,9 +20,10 @@ tuple<list<Chord>, int> DynamicProgressionFinder::GetSubPath(Chord start, Chord 
             {
                 list<Chord> chords({start});
                 
-                int immediateCost = start - possibleChord;
+                int pathCost = start - possibleChord;
                 auto subPath = GetSubPath(possibleChord, finish, pathLength - 1);
-                int subPathCost = get<1>(subPath);
+                
+                pathCost += get<1>(subPath);
                 auto subPathChords = get<0>(subPath);
                 
                 if(UsingKeySignature)
@@ -31,29 +31,29 @@ tuple<list<Chord>, int> DynamicProgressionFinder::GetSubPath(Chord start, Chord 
                     if(!PrimaryKey.ContainsChord(possibleChord) && !RelativeKey.ContainsChord(possibleChord))
                     {
                         if(ParallelKey.ContainsChord(possibleChord))
-                            subPathCost += ModalMixturePenalty;
+                            pathCost += ModalMixturePenalty;
                         else if(PrimaryKey.IsSecondary(possibleChord) || RelativeKey.IsSecondary(possibleChord))
-                            subPathCost += SecondaryDominantPenalty;
+                            pathCost += SecondaryDominantPenalty;
                         else if(ParallelKey.IsSecondary(possibleChord))
-                            subPathCost += ModalMixturePenalty + SecondaryDominantPenalty;
+                            pathCost += ModalMixturePenalty + SecondaryDominantPenalty;
                         else
-                            subPathCost += OutOfKeyPenalty;
+                            pathCost += OutOfKeyPenalty;
                     }
                 }
                 
                 for(Chord chord : subPathChords)
                 {
                     if(chord == start)
-                        subPathCost += RepeatedChordPenalty;
+                        pathCost += RepeatedChordPenalty;
                     if(chord.Root == start.Root)
-                        subPathCost += PedalTonePenalty;
+                        pathCost += PedalTonePenalty;
                 }
                 
                 chords.insert(chords.end(), subPathChords.begin(), subPathChords.end());
                 
-                if(immediateCost + subPathCost < cost)
+                if(pathCost < cost)
                 {
-                    cost = immediateCost + subPathCost;
+                    cost = pathCost;
                     path = chords;
                 }
             }
@@ -66,9 +66,8 @@ tuple<list<Chord>, int> DynamicProgressionFinder::GetSubPath(Chord start, Chord 
 void DynamicProgressionFinder::CatalogSubPath(int pathLength, Chord start, tuple<list<Chord>, int> entry)
 {
     if(Memo.find(pathLength) == Memo.end())
-    {
         Memo[pathLength] = unordered_map<Chord, tuple<list<Chord>, int>>();
-    }
+    
     Memo[pathLength][start] = entry;
 }
 

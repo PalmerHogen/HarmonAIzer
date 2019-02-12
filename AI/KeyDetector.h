@@ -16,12 +16,10 @@ public:
 protected:
     bool Updated;
     Key MostLikelyKey;
-    unordered_set<Key> PossibleKeys;
     int MemorySize;
     list<Chord> Memory;
     
-    void QualifyKeys();
-    void DisqualifyKeys();
+    void QualifyKey();
 };
 
 #endif

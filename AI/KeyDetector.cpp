@@ -1,5 +1,6 @@
 #include "KeyDetector.h"
 #include "../Parameters/UserParameters.h"
+#include <unordered_map>
 
 KeyDetector::KeyDetector(int memorySize)
 {
@@ -21,62 +22,37 @@ Key KeyDetector::DetectKey()
 {
     if(!Updated)
     {
-        QualifyKeys();
-        DisqualifyKeys();
+        QualifyKey();
         Updated = true;
     }
     return MostLikelyKey;
 }
 
-void KeyDetector::QualifyKeys()
+void KeyDetector::QualifyKey()
 {
-    KeyPattern patterns[3] = {KeyPattern(NaturalMinorKey), KeyPattern(HarmonicMinorKey), KeyPattern(MajorKey)};
-    
+    Key detectedKey;
+    int maxWeight = 0;
+    unordered_map<Key, int> KeyWeights;
     for(Chord chord : Memory)
     {
         for(int keyType = NaturalMinorKey; keyType <= MajorKey; keyType++)
         {
+            KeyPattern pattern((KeyType) keyType);
+            
             for(int scaleDegree = 0; scaleDegree < 8; scaleDegree++)
             {
-                ChordQuality quality = patterns[keyType].Qualities[scaleDegree];
-                Interval interval = patterns[keyType].Intervals[scaleDegree];
+                if(chord.Quality != pattern.Qualities[scaleDegree])
+                    continue;
                 
-                Key possibleKey = Key(chord.Root - interval, (KeyType)keyType);
+                Key possibleKey = Key(chord.Root - pattern.Intervals[scaleDegree], (KeyType)keyType);
                 
-                if(chord.Quality == quality)
-                    PossibleKeys.insert(possibleKey);
+                if(++KeyWeights[possibleKey] > maxWeight)
+                {
+                    detectedKey = possibleKey;
+                    maxWeight = KeyWeights[possibleKey];
+                }
             }
         }
     }
-}
-
-void KeyDetector::DisqualifyKeys()
-{
-    int minimumDeviance = Octave;
-    for(Key key : PossibleKeys)
-    {
-        int keyDeviance = 0;
-        
-        for(Chord chord : Memory)
-        {
-            if(!key.ContainsChord(chord) && !key.GetRelativeKey().ContainsChord(chord))
-            {
-                if(key.IsSecondary(chord))
-                    keyDeviance += SecondaryDominantPenalty;
-                else if(key.GetParallelKey().ContainsChord(chord))
-                    keyDeviance += ModalMixturePenalty;
-                else if(key.GetParallelKey().IsSecondary(chord))
-                    keyDeviance += ModalMixturePenalty + SecondaryDominantPenalty;
-                else
-                    keyDeviance += OutOfKeyPenalty;
-            }
-        }
-        
-        if(keyDeviance < minimumDeviance)
-        {
-            minimumDeviance = keyDeviance;
-            MostLikelyKey = key;
-        }
-    }
-    PossibleKeys.clear();
+    MostLikelyKey = detectedKey;
 }
