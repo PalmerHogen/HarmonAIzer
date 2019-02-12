@@ -6,7 +6,6 @@ using namespace std;
 
 int main (int argc, char* argv[])
 {
-    // Dynamic Chord Progression Finder Test
     Chord startingChord = Chord(C, Major);
     Chord endingChord = Chord(A, Minor);
     
@@ -17,6 +16,13 @@ int main (int argc, char* argv[])
     
     for(Chord chord : progression)
         cout << chord.ToString() << endl;
+    
+    /* Output:
+    C Major
+    G Dominant
+    E Minor
+    A Minor
+    */
     
     return 0;
 }
