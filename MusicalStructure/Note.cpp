@@ -102,21 +102,21 @@ bool Note::operator!=(const Note otherNote) const
     return BaseNoteNumber != otherNote.BaseNoteNumber;
 }
 
-int Note::operator-( const Note otherNote) const
+Interval Note::operator-( const Note otherNote) const
 {
     // Returns the minimum chromatic difference between two notes
-    int downInterval  = (BaseNoteNumber + 12 - otherNote.BaseNoteNumber) % 12;
-    int upInterval = (otherNote.BaseNoteNumber + 12 - BaseNoteNumber) % 12;
-    return downInterval < upInterval ? downInterval : upInterval;
+    Interval downInterval  = (Interval)((BaseNoteNumber + 12 - otherNote.BaseNoteNumber) % 12);
+    Interval upInterval = (Interval)((otherNote.BaseNoteNumber + 12 - BaseNoteNumber) % 12);
+    return downInterval < upInterval ? (Interval)downInterval : (Interval)upInterval;
 }
 
-Note Note::operator+(const int interval) const
+Note Note::operator+(const Interval interval) const
 {
     // Returns a note that is [interval] steps above the note
     return Note(BaseNoteNumber + interval);
 }
 
-Note Note::operator-(const int interval) const
+Note Note::operator-(const Interval interval) const
 {
     // Returns a note that is [interval] steps below the note
     return Note(BaseNoteNumber - interval);

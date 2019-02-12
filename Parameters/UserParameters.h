@@ -1,10 +1,11 @@
 #ifndef USERPARAMETERS
 #define USERPARAMETERS
 
-#define OUT_OF_KEY_PENALTY 12
-#define SECONDARY_DOMINANT_PENALTY 4
-#define MODAL_MIXTURE_PENALTY 4
-#define REPEATED_ROOT_PENALTY 4
-#define REPEATED_CHORD_PENALTY 12
+static int OutOfKeyPenalty = 3;
+static int NonChordTonePenalty = 2;
+static int SecondaryDominantPenalty = 1;
+static int ModalMixturePenalty = 2;
+static int PedalTonePenalty  = 4;
+static int RepeatedChordPenalty = 12;
 
 #endif

@@ -1,6 +1,3 @@
-#include "Note.h"
-#include "Chord.h"
-#include <unordered_set>
 #include "Key.h"
 
 KeyPattern::KeyPattern(KeyType type)
@@ -8,25 +5,21 @@ KeyPattern::KeyPattern(KeyType type)
     switch(type)
     {
         case MajorKey:
-            QualityArray = new ChordQuality[7]{Major, Minor, Minor, Major, Dominant, Minor, HalfDiminished};
-            IntervalArray = new int[7]{0, 2, 4, 5, 7, 9, 11};
+            Qualities = {Major, Minor, Minor, Major, Dominant, Minor, HalfDiminished};
+            Intervals = {Unison, MajorSecond, MajorThird, PerfectFourth, PerfectFifth, MajorSixth, MajorSeventh};
             break;
         case NaturalMinorKey:
-            QualityArray = new ChordQuality[7]{Minor, HalfDiminished, Major, Minor, Minor, Major, Dominant};
-            IntervalArray = new int[7]{0, 2, 3, 5, 7, 8, 10};
+            Qualities = {Minor, HalfDiminished, Major, Minor, Minor, Major, Dominant};
+            Intervals = {Unison, MajorSecond, MinorThird, PerfectFourth, PerfectFifth, MinorSixth, MinorSeventh};
             break;
         case HarmonicMinorKey:
-            QualityArray = new ChordQuality[7]{Minor, HalfDiminished, Major, Minor, Dominant, Major, Dominant};
-            IntervalArray = new int[7]{0, 2, 3, 5, 7, 8, 10};
+            Qualities = {Minor, HalfDiminished, Major, Minor, Dominant, Major, Dominant};
+            Intervals = {Unison, MajorSecond, MinorThird, PerfectFourth, PerfectFifth, MinorSixth, MinorSeventh};
             break;
     }
 }
 
-KeyPattern::~KeyPattern()
-{
-    delete QualityArray;
-    delete IntervalArray;
-}
+KeyPattern::~KeyPattern(){}
 
 Chord &ChordDescriptors::operator[](int index)
 {
@@ -54,18 +47,8 @@ Chord &ChordDescriptors::operator[](int index)
 Key::Key()
 {
     // Default Constructor will always construct C Major key,
-    // use a different constructor for custom behavior
-    Axis = Note(C);
-    Type = MajorKey;
-    
-    KeyPattern pattern = KeyPattern(Type);
-    
-    for(int i = 0; i < 8; i++)
-    {
-        Note note;
-        Notes.insert(note = Axis + pattern.IntervalArray[i]);
-        Chords.insert(MemberChords[i] = Chord(note, pattern.QualityArray[i]));
-    }
+    // use the other constructor for custom behavior
+    Key(Note(C), MajorKey);
 }
 
 Key::Key(Note axis, KeyType type)
@@ -78,8 +61,8 @@ Key::Key(Note axis, KeyType type)
     for(int i = 0; i < 8; i++)
     {
         Note note;
-        Notes.insert(note = Axis + pattern.IntervalArray[i]);
-        Chords.insert(MemberChords[i] = Chord(note, pattern.QualityArray[i]));
+        Notes.insert(note = Axis + pattern.Intervals[i]);
+        Chords.insert(MemberChords[i] = Chord(note, pattern.Qualities[i]));
     }
 }
 
@@ -101,16 +84,16 @@ bool Key::ContainsNote(Note note)
 bool Key::IsSecondary(Chord chord)
 {
     if(chord.Quality == Dominant)
-        return ContainsNote(chord.Root + 5);
+        return ContainsNote(chord.Root + PerfectFourth);
     else if (chord.Quality == Diminished)
-        return ContainsNote(chord.Root + 1);
+        return ContainsNote(chord.Root + MinorSecond);
     else
         return false;
 }
 
 Key Key::GetRelativeKey()
 {
-    return Type == MajorKey ? Key(Axis - 3, HarmonicMinorKey) : Key(Axis + 3, MajorKey);
+    return Type == MajorKey ? Key(Axis - MinorThird, HarmonicMinorKey) : Key(Axis + MinorThird, MajorKey);
 }
 
 Key Key::GetParallelKey()

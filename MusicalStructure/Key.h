@@ -1,22 +1,24 @@
-#ifndef _KEY_
-#define _KEY_
+#ifndef KEY
+#define KEY
 
 #include "Note.h"
 #include "Chord.h"
-#include <unordered_set>
+#include <vector>
 
-enum KeyType
+using namespace std;
+
+enum KeyType : int
 {
-	MajorKey,
-	NaturalMinorKey,
-    HarmonicMinorKey
+    NaturalMinorKey = 0,
+    HarmonicMinorKey = 1,
+	MajorKey = 2
 };
 
 class KeyPattern
 {
 public:
-    ChordQuality* QualityArray;
-    int* IntervalArray;
+    vector<ChordQuality> Qualities;
+    vector<Interval> Intervals;
     
     KeyPattern(KeyType type = MajorKey);
     ~KeyPattern();
@@ -53,19 +55,16 @@ public:
     bool operator==(const Key& otherKey) const;
     bool operator!=(const Key& otherKey) const;
 private:
-	std::unordered_set<Chord> Chords;
-    std::unordered_set<Note> Notes;
+	unordered_set<Chord> Chords;
+    unordered_set<Note> Notes;
 };
 
-namespace std
+template<> struct hash<Key>
 {
-    template<> struct hash<Key>
+    size_t operator()(const Key& key) const
     {
-        size_t operator()(const Key& key) const
-        {
-            return hash<int>()(key.GetId());
-        }
-    };
-}
+        return hash<int>()(key.GetId());
+    }
+};
 
 #endif

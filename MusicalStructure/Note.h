@@ -2,10 +2,11 @@
 #define NOTE
 
 #include <string>
-#include <stdlib.h>
 #include <unordered_set>
 
-enum NoteName
+using namespace std;
+
+enum NoteName : int
 {
 	C = 0,
 	D = 2,
@@ -16,11 +17,31 @@ enum NoteName
     B = 11
 };
 
-enum NoteModifier
+enum NoteModifier : int
 {
 	Natural = 0,
 	Sharp = 1,
 	Flat = -1
+};
+
+enum Interval : int
+{
+    Unison = 0,
+    MinorSecond = 1,
+    MajorSecond = 2,
+    MinorThird = 3,
+    MajorThird = 4,
+    PerfectFourth = 5,
+    AugmentedFourth = 6,
+    DiminishedFifth = 6,
+    PerfectFifth = 7,
+    AugmentedFifth = 8,
+    MinorSixth = 8,
+    MajorSixth = 9,
+    DiminishedSeventh = 9,
+    MinorSeventh = 10,
+    MajorSeventh = 11,
+    Octave = 12
 };
 
 class Note
@@ -31,28 +52,25 @@ public:
 	Note(int noteNumber);
 	~Note();
     
-    std::string ToString();
+    string ToString();
     
     bool operator==(const Note otherNote) const;
     bool operator!=(const Note otherNote) const;
-    int operator-(const Note otherNote) const;
-    Note operator+(const int interval) const;
-    Note operator-(const int interval) const;
+    Interval operator-(const Note otherNote) const;
+    Note operator+(const Interval interval) const;
+    Note operator-(const Interval interval) const;
     int GetId() const;
 private:
     void Normalize();
 	int BaseNoteNumber;
 };
 
-namespace std
+template<> struct hash<Note>
 {
-    template<> struct hash<Note>
+    size_t operator()(const Note& note) const
     {
-        size_t operator()(const Note& note) const
-        {
-            return hash<int>()(note.GetId());
-        }
-    };
-}
+        return hash<int>()(note.GetId());
+    }
+};
 
 #endif

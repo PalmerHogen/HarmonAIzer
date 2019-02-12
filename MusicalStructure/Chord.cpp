@@ -1,7 +1,5 @@
-#include "Note.h"
 #include "Chord.h"
 #include <list>
-#include <iostream>
 
 Chord::Chord()
 {
@@ -29,34 +27,34 @@ void Chord::ConstructSeventhChord()
     
     if(Quality > Minor)
     {
-        Notes.insert(Root + 4);
+        Notes.insert(Root + MajorThird);
         if(Quality == Augmented)
-            Notes.insert(Root + 8);
+            Notes.insert(Root + AugmentedFifth);
         else
         {
-            Notes.insert(Root + 7);
+            Notes.insert(Root + PerfectFifth);
             
             if(Quality == Dominant)
-                Notes.insert(Root + 10);
+                Notes.insert(Root + MinorSeventh);
             else
-                Notes.insert(Root + 11);
+                Notes.insert(Root + MajorSeventh);
         }
     }
     else
     {
-        Notes.insert(Root + 3);
+        Notes.insert(Root + MinorThird);
         if(Quality < Minor)
         {
-            Notes.insert(Root + 6);
+            Notes.insert(Root + DiminishedFifth);
             if(Quality == Diminished)
-                Notes.insert(Root + 9);
+                Notes.insert(Root + DiminishedSeventh);
             else
-                Notes.insert(Root + 10);
+                Notes.insert(Root + MinorSeventh);
         }
         else
         {
-            Notes.insert(Root + 7);
-            Notes.insert(Root + 10);
+            Notes.insert(Root + PerfectFifth);
+            Notes.insert(Root + MinorSeventh);
         }
     }
 }
@@ -93,15 +91,15 @@ int Chord::GetId() const
 
 bool Chord::operator==(const Chord otherChord) const
 {
-    if(Quality == Diminished)
+    switch(Quality)
     {
-        return Quality == otherChord.Quality && (Root - otherChord.Root) % 3 == 0;
+        case Diminished:
+            return Quality == otherChord.Quality && (Root - otherChord.Root) % 3 == 0;
+        case Augmented:
+            return Quality == otherChord.Quality && (Root - otherChord.Root) % 4 == 0;
+        default:
+            return Root == otherChord.Root && Quality == otherChord.Quality;
     }
-    else if (Quality == Augmented)
-    {
-        return Quality == otherChord.Quality && (Root - otherChord.Root) % 4 == 0;
-    }
-    return Root == otherChord.Root && Quality == otherChord.Quality;
 }
 
 int Chord::operator-(Chord otherChord)
@@ -114,7 +112,7 @@ int Chord::operator-(Chord otherChord)
         if(otherChord.Contains(note))
             continue;
         
-        int minDist = AUGMENTED_FOURTH;
+        Interval minDist = AugmentedFourth;
         
         for(Note otherNote : otherChord.Notes)
         {
@@ -124,7 +122,7 @@ int Chord::operator-(Chord otherChord)
             }
         }
         
-        distance += minDist;
+        distance += (int)minDist;
     }
     return distance;
 }
