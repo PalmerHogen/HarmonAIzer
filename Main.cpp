@@ -1,5 +1,3 @@
-#include "MusicalStructure/Note.h"
-#include "MusicalStructure/Chord.h"
 #include "MusicalStructure/Key.h"
 #include "AI/DynamicProgressionFinder.h"
 #include <iostream>
