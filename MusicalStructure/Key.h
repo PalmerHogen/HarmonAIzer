@@ -1,5 +1,4 @@
-#ifndef KEY
-#define KEY
+#pragma once
 
 #include "Note.h"
 #include "Chord.h"
@@ -67,5 +66,3 @@ template<> struct hash<Key>
         return hash<int>()(key.GetId());
     }
 };
-
-#endif

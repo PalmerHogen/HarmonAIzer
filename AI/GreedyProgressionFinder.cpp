@@ -8,14 +8,14 @@ Chord GreedyProgressionFinder::FindNextChord(list<Note> noteRestrictions)
 {
     Chord optimalChord = UsingKeySignature ? PrimaryKey.MemberChords.Tonic : Chord();
     
-    if(Memory.size() == 0)
+    if(StoredProgression.Length() == 0)
         return optimalChord;
     
     int cost = Octave;
     
     for(Chord chord : AllChords)
     {
-        int chordCost = Memory.back() - chord;
+        int chordCost = StoredProgression.LastChord() - chord;
         
         for(Note note : noteRestrictions)
         {
@@ -23,7 +23,7 @@ Chord GreedyProgressionFinder::FindNextChord(list<Note> noteRestrictions)
                 chordCost += NonChordTonePenalty;
         }
         
-        for(Chord previousChord : Memory)
+        for(Chord previousChord : StoredProgression)
         {
             if(chord == previousChord)
                 chordCost += RepeatedChordPenalty;

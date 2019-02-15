@@ -16,7 +16,7 @@ int main (int argc, char* argv[])
     cout << endl << "Dynamic Progression Finder:" << endl;
     DynamicProgressionFinder dynamicProgressionFinder;
     dynamicProgressionFinder.SetKey(CMajor);
-    list<Chord> dynamicProgression = dynamicProgressionFinder.FindChordProgression(startingChord, endingChord, progressionLength);
+    Progression dynamicProgression = dynamicProgressionFinder.FindChordProgression(startingChord, endingChord, progressionLength);
     for(Chord chord : dynamicProgression)
         cout << chord.ToString() << endl;
     
@@ -24,11 +24,11 @@ int main (int argc, char* argv[])
     cout << endl << "Greedy Progression Finder:" << endl;
     GreedyProgressionFinder greedyProgressionFinder;
     greedyProgressionFinder.SetKey(CMajor);
-    list<Chord> greedyProgression;
+    Progression greedyProgression;
     for(int i = 0; i < progressionLength; i++)
     {
         Chord chord = greedyProgressionFinder.FindNextChord();
-        greedyProgression.push_back(chord);
+        greedyProgression.Add(chord);
         greedyProgressionFinder.CatalogChord(chord);
         cout << chord.ToString() << endl;
     }
@@ -37,11 +37,11 @@ int main (int argc, char* argv[])
     cout << endl << "Greedy Progression Finder with Continuously-updating Key Center:" << endl;
     GreedyProgressionFinder greedyExplorer;
     greedyExplorer.SetKey(CMajor);
-    list<Chord> explorativeProgression;
+    Progression explorativeProgression;
     for(int i = 0; i < progressionLength; i++)
     {
         Chord chord = greedyExplorer.FindNextChord();
-        explorativeProgression.push_back(chord);
+        explorativeProgression.Add(chord);
         greedyExplorer.CatalogChord(chord);
         greedyExplorer.SetKey(greedyExplorer.DetectKey());
         cout << chord.ToString() << endl;

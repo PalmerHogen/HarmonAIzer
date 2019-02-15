@@ -1,7 +1,7 @@
-#ifndef PROGRESSIONFINDER
-#define PROGRESSIONFINDER
+#pragma once
 
 #include "../MusicalStructure/Key.h"
+#include "../MusicalStructure/Progression.h"
 
 using namespace std;
 
@@ -20,5 +20,3 @@ protected:
     unordered_set<Chord> AllChords;
     void GenerateAllChords();
 };
-
-#endif

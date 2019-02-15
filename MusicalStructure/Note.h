@@ -1,5 +1,4 @@
-#ifndef NOTE
-#define NOTE
+#pragma once
 
 #include <string>
 #include <unordered_set>
@@ -48,9 +47,9 @@ class Note
 {
 public:
     Note();
-	Note(NoteName name, NoteModifier modifier);
+	Note(NoteName name, NoteModifier modifier = Natural);
 	Note(int noteNumber);
-	~Note();
+	virtual ~Note();
     
     string ToString();
     
@@ -72,5 +71,3 @@ template<> struct hash<Note>
         return hash<int>()(note.GetId());
     }
 };
-
-#endif

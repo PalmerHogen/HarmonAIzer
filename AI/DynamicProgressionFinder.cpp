@@ -4,27 +4,23 @@ DynamicProgressionFinder::DynamicProgressionFinder() : ProgressionFinder(){}
 
 DynamicProgressionFinder::~DynamicProgressionFinder() {}
 
-tuple<list<Chord>, int> DynamicProgressionFinder::GetSubPath(Chord start, Chord finish, int pathLength)
+tuple<Progression, int> DynamicProgressionFinder::GetSubProgression(Chord start, Chord finish, int pathLength)
 {
-    if (!SubPathTraversed(pathLength, start))
+    if (!SubProgressionTraversed(pathLength, start))
     {
         if(pathLength <= 1)
-            CatalogSubPath(pathLength, start, tuple<list<Chord>, int>(list<Chord>({finish}), start - finish));
+            CatalogSubProgression(pathLength, start, tuple<Progression, int>(Progression({finish}), start - finish));
         
         else
         {
             int cost = pathLength * Octave;
-            list<Chord> path;
+            Progression path;
             
             for(Chord possibleChord : AllChords)
             {
-                list<Chord> chords({start});
+                Progression chords({start});
                 
                 int pathCost = start - possibleChord;
-                auto subPath = GetSubPath(possibleChord, finish, pathLength - 1);
-                
-                pathCost += get<1>(subPath);
-                auto subPathChords = get<0>(subPath);
                 
                 if(UsingKeySignature)
                 {
@@ -41,6 +37,11 @@ tuple<list<Chord>, int> DynamicProgressionFinder::GetSubPath(Chord start, Chord 
                     }
                 }
                 
+                auto subPath = GetSubProgression(possibleChord, finish, pathLength - 1);
+                
+                pathCost += get<1>(subPath);
+                auto subPathChords = get<0>(subPath);
+                
                 for(Chord chord : subPathChords)
                 {
                     if(chord == start)
@@ -49,7 +50,7 @@ tuple<list<Chord>, int> DynamicProgressionFinder::GetSubPath(Chord start, Chord 
                         pathCost += PedalTonePenalty;
                 }
                 
-                chords.insert(chords.end(), subPathChords.begin(), subPathChords.end());
+                chords.Append(subPathChords);
                 
                 if(pathCost < cost)
                 {
@@ -57,27 +58,27 @@ tuple<list<Chord>, int> DynamicProgressionFinder::GetSubPath(Chord start, Chord 
                     path = chords;
                 }
             }
-            CatalogSubPath(pathLength, start, tuple<list<Chord>, int>(path, cost));
+            CatalogSubProgression(pathLength, start, tuple<Progression, int>(path, cost));
         }
     }
-    return Memo[pathLength][start];
+    return SubProgressions[pathLength][start];
 }
 
-void DynamicProgressionFinder::CatalogSubPath(int pathLength, Chord start, tuple<list<Chord>, int> entry)
+void DynamicProgressionFinder::CatalogSubProgression(int pathLength, Chord start, tuple<Progression, int> entry)
 {
-    if(Memo.find(pathLength) == Memo.end())
-        Memo[pathLength] = unordered_map<Chord, tuple<list<Chord>, int>>();
+    if(SubProgressions.find(pathLength) == SubProgressions.end())
+        SubProgressions[pathLength] = unordered_map<Chord, tuple<Progression, int>>();
     
-    Memo[pathLength][start] = entry;
+    SubProgressions[pathLength][start] = entry;
 }
 
-bool DynamicProgressionFinder::SubPathTraversed(int pathLength, Chord start)
+bool DynamicProgressionFinder::SubProgressionTraversed(int pathLength, Chord start)
 {
-    return Memo.find(pathLength) != Memo.end() && Memo[pathLength].find(start) != Memo[pathLength].end();
+    return SubProgressions.find(pathLength) != SubProgressions.end() && SubProgressions[pathLength].find(start) != SubProgressions[pathLength].end();
 }
 
-list<Chord> DynamicProgressionFinder::FindChordProgression(Chord start, Chord destination, int length)
+Progression DynamicProgressionFinder::FindChordProgression(Chord startChord, Chord endChord, int numberOfChords)
 {
-    Memo.clear();
-    return get<0>(GetSubPath(start, destination, length));
+    SubProgressions.clear();
+    return get<0>(GetSubProgression(startChord, endChord, numberOfChords));
 }

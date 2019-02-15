@@ -1,5 +1,4 @@
-#ifndef GREEDYPROGRESSIONFINDER
-#define GREEDYPROGRESSIONFINDER
+#pragma once
 
 #include "ProgressionFinder.h"
 #include "KeyDetector.h"
@@ -16,5 +15,3 @@ public:
     Chord FindNextChord(list<Note> noteRestrictions = {});
 private:
 };
-
-#endif

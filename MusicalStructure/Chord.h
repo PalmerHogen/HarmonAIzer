@@ -1,5 +1,4 @@
-#ifndef CHORD
-#define CHORD
+#pragma once
 
 #include "Note.h"
 #include <unordered_set>
@@ -21,7 +20,7 @@ class Chord
 public:
     Chord();
     Chord(Note root, ChordQuality quality);
-    ~Chord();
+    virtual ~Chord();
     Note Root;
     ChordQuality Quality;
     bool Contains(Note note);
@@ -45,5 +44,3 @@ template<> struct hash<Chord>
         return hash<int>()(chord.GetId());
     }
 };
-
-#endif

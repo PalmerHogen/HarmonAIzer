@@ -12,9 +12,9 @@ KeyDetector::~KeyDetector(){}
 
 void KeyDetector::CatalogChord(Chord chord)
 {
-    Memory.push_back(chord);
-    if(Memory.size() > MemorySize)
-        Memory.pop_front();
+    StoredProgression.Add(chord);
+    if(StoredProgression.Length() > MemorySize)
+        StoredProgression.RemoveFirst();
     Updated = false;
 }
 
@@ -33,7 +33,7 @@ void KeyDetector::QualifyKey()
     Key detectedKey;
     int maxWeight = 0;
     unordered_map<Key, int> KeyWeights;
-    for(Chord chord : Memory)
+    for(Chord chord : StoredProgression)
     {
         for(int keyType = NaturalMinorKey; keyType <= MajorKey; keyType++)
         {

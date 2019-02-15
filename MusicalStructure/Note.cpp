@@ -5,7 +5,7 @@ Note::Note()
     BaseNoteNumber = 0;
 }
 
-Note::Note(NoteName name, NoteModifier modifier = Natural)
+Note::Note(NoteName name, NoteModifier modifier)
 {
 	switch(name)
 	{

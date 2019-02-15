@@ -1,5 +1,4 @@
-#ifndef DYNAMICPROGRESSIONFINDER
-#define DYNAMICPROGRESSIONFINDER
+#pragma once
 
 #include "../Parameters/UserParameters.h"
 #include "ProgressionFinder.h"
@@ -14,15 +13,12 @@ class DynamicProgressionFinder : public ProgressionFinder
 public:
     DynamicProgressionFinder();
     ~DynamicProgressionFinder();
-    list<Chord> FindChordProgression(Chord startChord, Chord endChord, int numberOfChords);
+    Progression FindChordProgression(Chord startChord, Chord endChord, int numberOfChords);
     
 private:
-    tuple<list<Chord>, int> GetSubPath(Chord start, Chord finish, int pathLength);
-    unordered_map<int, unordered_map<Chord, tuple<list<Chord>, int>>> Memo;
+    tuple<Progression, int> GetSubProgression(Chord start, Chord finish, int pathLength);
+    unordered_map<int, unordered_map<Chord, tuple<Progression, int>>> SubProgressions;
     
-    void ClearPaths();
-    void CatalogSubPath(int pathLength, Chord start, tuple<list<Chord>, int> entry);
-    bool SubPathTraversed(int pathLength, Chord start);
+    void CatalogSubProgression(int progressionLength, Chord start, tuple<Progression, int> entry);
+    bool SubProgressionTraversed(int progressionLength, Chord start);
 };
-
-#endif

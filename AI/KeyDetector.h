@@ -1,7 +1,7 @@
-#ifndef KEYDETECTOR
-#define KEYDETECTOR
+#pragma once
 
 #include "../MusicalStructure/Key.h"
+#include "../MusicalStructure/Progression.h"
 #include <list>
 
 using namespace std;
@@ -17,9 +17,7 @@ protected:
     bool Updated;
     Key MostLikelyKey;
     int MemorySize;
-    list<Chord> Memory;
+    Progression StoredProgression;
     
     void QualifyKey();
 };
-
-#endif
