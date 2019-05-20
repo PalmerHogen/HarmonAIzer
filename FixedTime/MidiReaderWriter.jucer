@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="JrUkdk" name="MidiReaderWriter" projectType="consoleapp"
+              jucerVersion="5.4.3">
+  <MAINGROUP id="jt2V4i" name="MidiReaderWriter">
+    <GROUP id="{CC267CE0-9B56-7770-5D81-E5923E4E3723}" name="AI">
+      <FILE id="ZEPVDk" name="DynamicProgressionFinder.cpp" compile="1" resource="0"
+            file="Source/AI/DynamicProgressionFinder.cpp"/>
+      <FILE id="BDUjaC" name="DynamicProgressionFinder.h" compile="0" resource="0"
+            file="Source/AI/DynamicProgressionFinder.h"/>
+      <FILE id="RlMOsT" name="GreedyProgressionFinder.cpp" compile="1" resource="0"
+            file="Source/AI/GreedyProgressionFinder.cpp"/>
+      <FILE id="OUW3ve" name="GreedyProgressionFinder.h" compile="0" resource="0"
+            file="Source/AI/GreedyProgressionFinder.h"/>
+      <FILE id="LfwaPi" name="KeyDetector.cpp" compile="1" resource="0" file="Source/AI/KeyDetector.cpp"/>
+      <FILE id="bznoKn" name="KeyDetector.h" compile="0" resource="0" file="Source/AI/KeyDetector.h"/>
+      <FILE id="oBFstg" name="ProgressionFinder.cpp" compile="1" resource="0"
+            file="Source/AI/ProgressionFinder.cpp"/>
+      <FILE id="Ry3901" name="ProgressionFinder.h" compile="0" resource="0"
+            file="Source/AI/ProgressionFinder.h"/>
+    </GROUP>
+    <GROUP id="{7ABBE85E-9F8B-AD8D-D772-3538992FE1A3}" name="Parameters">
+      <FILE id="tfx1k4" name="UserParameters.h" compile="0" resource="0"
+            file="Source/Parameters/UserParameters.h"/>
+    </GROUP>
+    <GROUP id="{4208DDFE-FDFC-43C6-712D-C2FB3F3596EA}" name="MusicalStructure">
+      <FILE id="HgyNpQ" name="Chord.cpp" compile="1" resource="0" file="Source/MusicalStructure/Chord.cpp"/>
+      <FILE id="EX8WkE" name="Chord.h" compile="0" resource="0" file="Source/MusicalStructure/Chord.h"/>
+      <FILE id="jsTyYc" name="Key.cpp" compile="1" resource="0" file="Source/MusicalStructure/Key.cpp"/>
+      <FILE id="T9W2U6" name="Key.h" compile="0" resource="0" file="Source/MusicalStructure/Key.h"/>
+      <FILE id="YbLEID" name="Note.cpp" compile="1" resource="0" file="Source/MusicalStructure/Note.cpp"/>
+      <FILE id="e2uOXw" name="Note.h" compile="0" resource="0" file="Source/MusicalStructure/Note.h"/>
+      <FILE id="YgTBLA" name="Progression.cpp" compile="1" resource="0" file="Source/MusicalStructure/Progression.cpp"/>
+      <FILE id="Co6EmC" name="Progression.h" compile="0" resource="0" file="Source/MusicalStructure/Progression.h"/>
+    </GROUP>
+    <GROUP id="{553700DD-2D07-CE43-7AD8-FFF1E1615D9B}" name="Source">
+      <FILE id="a0oADK" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../Applications/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+</JUCERPROJECT>

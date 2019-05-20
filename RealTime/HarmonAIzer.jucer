@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="E8u4Fx" name="HarmonAIzer" projectType="audioplug" jucerVersion="5.4.3"
+              companyName="PHAudio" pluginAUMainType="'aumi'" pluginCharacteristicsValue="pluginIsMidiEffectPlugin,pluginProducesMidiOut,pluginWantsMidiIn"
+              pluginFormats="buildVST">
+  <MAINGROUP id="VJOQ8R" name="HarmonAIzer">
+    <GROUP id="{9813CE4D-C81C-2653-8EA2-660DA76A3B1D}" name="AI">
+      <FILE id="yuUFwC" name="DynamicProgressionFinder.cpp" compile="1" resource="0"
+            file="Source/AI/DynamicProgressionFinder.cpp"/>
+      <FILE id="s6LHAB" name="DynamicProgressionFinder.h" compile="0" resource="0"
+            file="Source/AI/DynamicProgressionFinder.h"/>
+      <FILE id="IWgFmb" name="GreedyProgressionFinder.cpp" compile="1" resource="0"
+            file="Source/AI/GreedyProgressionFinder.cpp"/>
+      <FILE id="VzMEVl" name="GreedyProgressionFinder.h" compile="0" resource="0"
+            file="Source/AI/GreedyProgressionFinder.h"/>
+      <FILE id="UnEUqz" name="KeyDetector.cpp" compile="1" resource="0" file="Source/AI/KeyDetector.cpp"/>
+      <FILE id="HaC38X" name="KeyDetector.h" compile="0" resource="0" file="Source/AI/KeyDetector.h"/>
+      <FILE id="wMwcCU" name="ProgressionFinder.cpp" compile="1" resource="0"
+            file="Source/AI/ProgressionFinder.cpp"/>
+      <FILE id="C3zSJd" name="ProgressionFinder.h" compile="0" resource="0"
+            file="Source/AI/ProgressionFinder.h"/>
+    </GROUP>
+    <GROUP id="{0400B848-895F-4E8C-1CDC-ED5DA3FFE458}" name="DSP">
+      <FILE id="XS32NE" name="PitchDetector.cpp" compile="1" resource="0"
+            file="Source/DSP/PitchDetector.cpp"/>
+      <FILE id="NHyjQK" name="PitchDetector.h" compile="0" resource="0" file="Source/DSP/PitchDetector.h"/>
+      <FILE id="lR9ZiE" name="Sample.cpp" compile="1" resource="0" file="Source/DSP/Sample.cpp"/>
+      <FILE id="acflGN" name="Sample.h" compile="0" resource="0" file="Source/DSP/Sample.h"/>
+      <FILE id="wSML9F" name="Signal.cpp" compile="1" resource="0" file="Source/DSP/Signal.cpp"/>
+      <FILE id="CkaGkN" name="Signal.h" compile="0" resource="0" file="Source/DSP/Signal.h"/>
+      <FILE id="TBRzxo" name="WaveletPitchDetector.cpp" compile="1" resource="0"
+            file="Source/DSP/WaveletPitchDetector.cpp"/>
+      <FILE id="aJEycs" name="WaveletPitchDetector.h" compile="0" resource="0"
+            file="Source/DSP/WaveletPitchDetector.h"/>
+    </GROUP>
+    <GROUP id="{24F71E11-8CF0-4B80-775E-1F6A33AAC38F}" name="MusicalStructure">
+      <FILE id="VhVIRM" name="Chord.cpp" compile="1" resource="0" file="Source/MusicalStructure/Chord.cpp"/>
+      <FILE id="XROphd" name="Chord.h" compile="0" resource="0" file="Source/MusicalStructure/Chord.h"/>
+      <FILE id="jwUCz2" name="Key.cpp" compile="1" resource="0" file="Source/MusicalStructure/Key.cpp"/>
+      <FILE id="C7s7Zi" name="Key.h" compile="0" resource="0" file="Source/MusicalStructure/Key.h"/>
+      <FILE id="eMQ9Kb" name="Note.cpp" compile="1" resource="0" file="Source/MusicalStructure/Note.cpp"/>
+      <FILE id="fXUT8v" name="Note.h" compile="0" resource="0" file="Source/MusicalStructure/Note.h"/>
+      <FILE id="YDEpUv" name="Progression.cpp" compile="1" resource="0" file="Source/MusicalStructure/Progression.cpp"/>
+      <FILE id="YN4bqs" name="Progression.h" compile="0" resource="0" file="Source/MusicalStructure/Progression.h"/>
+    </GROUP>
+    <GROUP id="{5DF57994-9E07-0E8E-9721-76AE35C51975}" name="Parameters">
+      <FILE id="dd0oqA" name="UserParameters.h" compile="0" resource="0"
+            file="Source/Parameters/UserParameters.h"/>
+    </GROUP>
+    <GROUP id="{D7BAAFA8-A38E-3F5E-ADC9-E2B92A8EAAAD}" name="Source">
+      <FILE id="fchjzK" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="YVtmcs" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="jRbFlt" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="VtO4GK" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="/Users/palmernhogen/Downloads/VST_SDK/VST2_SDK"
+                       vst3BinaryLocation="/Users/palmernhogen/Documents/HarmonAIzer"
+                       osxArchitecture="32BitUniversal"/>
+        <CONFIGURATION isDebug="0" name="Release" osxArchitecture="32BitUniversal"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../Applications/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <OSX buildEnabled="1"/>
+  </LIVE_SETTINGS>
+  <JUCEOPTIONS JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+</JUCERPROJECT>
