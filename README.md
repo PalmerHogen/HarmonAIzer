@@ -12,7 +12,7 @@ Project Harmonizes Input signals or MIDI notes from a Common Practice Period Per
   • Minimizing dissonance with the detected pitch; if the chord contains the pitch, this is ideal<br/>
   • Minimizing voice-movement from the surrounding chords that were recommended; using the same chord or a new chord with many common tones is ideal<br/>
   • Minimizing deviance from a perceived or prescribed key center (optional, though recommended for generating tonal music)<br/>
-  • Minimizing tense intervals or densely-packed chord voicings (several optional parameters; this is especially useless if the goal is jazz harmony)<br/>
+  • Minimizing tense intervals or densely-packed chord voicings (several optional parameters; may not be relevant depending on desired style)<br/>
 
 3. After a chord is recommended, a smooth voicing (w.r.t. the surrounding chords) is determined via Modular Arithmetic and user parameters
 
